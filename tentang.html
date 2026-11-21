@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tentang | TEKO TUKU</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="error-handler.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html"><img class="brand-mark" src="assets/banner-logo-640.jpg" alt="Logo TEKO TUKU"><span>TEKO <b>TUKU</b><small>Komputer &amp; Aksesoris</small></span></a>
+      <nav><a href="index.html">Beranda</a><a href="produk.html">Produk</a><a class="active" href="tentang.html">Tentang</a></nav>
+      <button class="cart-button" onclick="toggleCart()">Keranjang <span id="cart-count">0</span></button>
+    </div>
+  </header>
+
+  <main>
+    <section class="about-section">
+      <div class="container about-inner">
+        <div><span class="eyebrow">TENTANG KAMI</span><h2>TEKO TUKU</h2></div>
+        <p>TEKO TUKU adalah toko komputer dan aksesoris yang menyediakan RAM, SSD, printer, router, serta berbagai perlengkapan komputer lainnya. Kami ingin memudahkan kebutuhan komputer kamu dengan pilihan produk yang jelas dan pemesanan yang praktis lewat WhatsApp.</p>
+      </div>
+    </section>
+
+    <section class="container profile-section">
+      <div class="section-heading"><div><span class="eyebrow">PROFIL PERUSAHAAN</span><h2>Kenapa memilih TEKO TUKU?</h2></div><p>Komitmen kami dalam melayani kebutuhan komputer kamu.</p></div>
+      <div class="profile-grid">
+        <article class="profile-card"><span>01 / PRODUK</span><h3>Produk pilihan</h3><p>Kami menyediakan kebutuhan komputer yang paling sering dibutuhkan, mulai dari penyimpanan, memori, hingga aksesoris pendukung.</p></article>
+        <article class="profile-card"><span>02 / HARGA</span><h3>Harga bersaing</h3><p>Informasi harga ditampilkan dengan jelas sehingga kamu bisa membandingkan dan memilih produk yang paling sesuai.</p></article>
+        <article class="profile-card"><span>03 / LAYANAN</span><h3>Layanan responsif</h3><p>Butuh bantuan memilih produk atau ingin memesan? Hubungi kami langsung melalui WhatsApp untuk respons yang cepat.</p></article>
+      </div>
+    </section>
+
+    <section class="container feedback-section" id="kritik">
+      <div class="section-heading"><div><span class="eyebrow">KRITIK &amp; SARAN</span><h2>Beri kami masukan</h2></div><p>Masukanmu membantu kami memperbaiki layanan.</p></div>
+      <form class="feedback-form" id="feedback-form" onsubmit="submitFeedback(event)">
+        <input id="feedback-name" type="text" placeholder="Nama kamu" required>
+        <input id="feedback-email" type="email" placeholder="Email (opsional)">
+        <textarea id="feedback-message" placeholder="Tulis kritik atau saranmu di sini..." required></textarea>
+        <button class="primary-btn" type="submit">Kirim Kritik &amp; Saran</button>
+      </form>
+      <div id="feedback-success" class="form-success hidden">Terima kasih! Kritik dan saranmu sudah tersimpan dan juga dikirim ke WhatsApp kami.</div>
+    </section>
+  </main>
+
+  <footer><div class="container footer-inner"><b>TEKO TUKU</b><span>© <span id="year"></span> TEKO TUKU. Semua hak dilindungi.</span></div></footer>
+
+  <div id="cart-panel" class="cart-panel hidden">
+    <div class="cart-head"><h3>Keranjang belanja</h3><button onclick="toggleCart()" aria-label="Tutup">✕</button></div>
+    <div id="cart-items"></div>
+    <div class="cart-total"><span>Total</span><b id="cart-total">Rp0</b></div>
+    <button class="primary-btn full" onclick="checkoutWhatsApp()">Pesan via WhatsApp</button>
+  </div>
+  <div id="toast" class="toast"></div>
+  <script src="script.js?v=2"></script>
+</body>
+</html>

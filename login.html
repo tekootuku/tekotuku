@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Admin | TEKO TUKU</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .login-page{min-height:100vh;display:grid;place-items:center;background:var(--paper);padding:24px}
+    .login-card{width:min(420px,100%);background:#fff;border:1px solid var(--line);border-radius:20px;padding:36px 32px;box-shadow:0 25px 60px #00000012}
+    .login-card .brand{justify-content:center;margin-bottom:26px}
+    .login-card h1{font-size:24px;margin:0 0 8px;text-align:center}
+    .login-subtitle{text-align:center;color:var(--muted);font-size:14px;margin:0 0 26px}
+    .login-form{display:grid;gap:14px}
+    .login-form label{font-size:13px;font-weight:700;display:block;margin-bottom:7px}
+    .login-form input[type="text"],.login-form input[type="password"]{width:100%;border:1px solid var(--line);border-radius:9px;padding:12px 14px;background:#fff;outline:none}
+    .login-form input:focus{border-color:var(--yellow)}
+    .login-row{display:flex;align-items:center;justify-content:space-between;font-size:13px;color:var(--muted)}
+    .login-row label{display:flex;align-items:center;gap:7px;margin:0;font-weight:500;cursor:pointer}
+    .login-row a{color:var(--yellow-dark);font-weight:700}
+    .login-form .primary-btn{width:100%;margin-top:6px}
+    .login-error{display:none;background:#fff4e5;border:1px solid #ffd28a;color:#8a4b00;border-radius:9px;padding:11px 13px;font-size:13px;text-align:center}
+    .login-error.show{display:block}
+    .login-footer{text-align:center;margin-top:22px;font-size:13px;color:var(--muted)}
+    .login-footer a{color:var(--yellow-dark);font-weight:700}
+    @media(max-width:600px){.login-card{padding:28px 20px}}
+  </style>
+  <script src="error-handler.js"></script>
+  <script src="auth.js"></script>
+  <script>
+    if (isAdminLoggedIn()) location.replace("admin.html");
+  </script>
+</head>
+<body>
+  <main class="login-page">
+    <div class="login-card">
+      <a class="brand" href="index.html"><img class="brand-mark" src="assets/banner-logo-640.jpg" alt="Logo TEKO TUKU"><span>TEKO <b>TUKU</b><small>Komputer &amp; Aksesoris</small></span></a>
+      <h1>Login Admin</h1>
+      <p class="login-subtitle">Masuk untuk mengelola produk toko.</p>
+
+      <div id="login-error" class="login-error">Username atau password salah.</div>
+
+      <form class="login-form" id="login-form">
+        <div>
+          <label for="username">Username</label>
+          <input id="username" type="text" autocomplete="username" placeholder="Masukkan username" required>
+        </div>
+        <div>
+          <label for="password">Password</label>
+          <input id="password" type="password" autocomplete="current-password" placeholder="Masukkan password" required>
+        </div>
+        <div class="login-row">
+          <label><input id="remember" type="checkbox"> Ingat saya</label>
+          <a href="index.html">Kembali ke toko</a>
+        </div>
+        <button class="primary-btn" type="submit">Masuk</button>
+      </form>
+
+      <p class="login-footer">Belum punya akses? <a href="index.html">Hubungi pemilik toko</a></p>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById("login-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const user = document.getElementById("username").value.trim();
+      const pass = document.getElementById("password").value;
+      const remember = document.getElementById("remember").checked;
+      const error = document.getElementById("login-error");
+
+      if (loginAdmin(user, pass, remember)) {
+        location.replace("admin.html");
+      } else {
+        error.classList.add("show");
+        document.getElementById("password").value = "";
+        document.getElementById("password").focus();
+      }
+    });
+  </script>
+</body>
+</html>

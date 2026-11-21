@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Admin Produk | TEKO TUKU</title><link rel="stylesheet" href="style.css"><script src="error-handler.js"></script><script src="auth.js"></script><script>if(!isAdminLoggedIn())location.replace("login.html");</script></head>
+<body><header class="site-header"><div class="container nav"><a class="brand" href="index.html"><img class="brand-mark" src="assets/banner-logo-640.jpg" alt="Logo TEKO TUKU"><span>TEKO <b>TUKU</b><small>Admin Produk</small></span></a><div class="nav-actions"><a class="primary-btn" href="index.html">Lihat Toko</a><button class="primary-btn" onclick="logoutAdmin()">Keluar</button></div></div></header>
+<main class="container admin-wrap"><div class="admin-top"><div><span class="eyebrow">PENGELOLAAN TOKO</span><h2>Dashboard produk</h2><p style="color:var(--muted)">Tambah, ubah, atau hapus produk dan kategori toko.</p></div></div>
+<form class="admin-form" id="product-form"><input type="hidden" id="product-id"><input id="name" placeholder="Nama produk" required><input id="price" type="number" min="0" placeholder="Harga (contoh: 175000)" required><select id="category" required><option value="">Pilih kategori</option></select><input id="image" type="text" placeholder="URL atau path gambar (opsional), misal: assets/produk/ram.jpg"><textarea id="description" placeholder="Deskripsi produk (opsional)"></textarea><button class="primary-btn" type="submit" id="save-button">Simpan produk</button><button class="small-btn" type="button" onclick="resetForm()">Kosongkan form</button></form>
+<section class="category-manager">
+  <h3>Kategori produk</h3>
+  <p class="muted-note">Tambah kategori baru agar bisa dipilih saat menambah atau mengedit produk.</p>
+  <form class="category-form" id="category-form">
+    <input id="new-category" type="text" placeholder="Nama kategori baru" required>
+    <button class="primary-btn" type="submit">Tambah kategori</button>
+  </form>
+  <div class="category-list" id="category-list"></div>
+</section>
+<h3>Daftar produk</h3><table class="admin-list"><thead><tr><th>Produk</th><th>Kategori</th><th>Harga</th><th>Aksi</th></tr></thead><tbody id="admin-products"></tbody></table>
+<p style="color:var(--muted);font-size:12px;margin-top:24px">Catatan: data tersimpan di browser ini (LocalStorage). Untuk menyinkronkan produk ke semua pengunjung website, diperlukan database online.<br>Gambar bisa berupa URL lengkap (<b>https://...</b>) atau path file di folder website, misalnya <b>assets/produk/ram.jpg</b>. File harus di-upload ke hosting agar bisa dimuat pengunjung.</p></main><script src="admin.js?v=2"></script></body></html>

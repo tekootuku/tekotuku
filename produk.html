@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produk | TEKO TUKU</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="error-handler.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html"><img class="brand-mark" src="assets/banner-logo-640.jpg" alt="Logo TEKO TUKU"><span>TEKO <b>TUKU</b><small>Komputer &amp; Aksesoris</small></span></a>
+      <nav><a href="index.html">Beranda</a><a class="active" href="produk.html">Produk</a><a href="tentang.html">Tentang</a></nav>
+      <button class="cart-button" onclick="toggleCart()">Keranjang <span id="cart-count">0</span></button>
+    </div>
+  </header>
+
+  <main>
+    <section class="container shop-section">
+      <div class="section-heading"><div><span class="eyebrow">KOLEKSI KAMI</span><h2>Produk pilihan</h2></div><p>Pilih produk yang kamu butuhkan.</p></div>
+      <div class="toolbar">
+        <input id="search-input" type="search" placeholder="Cari nama produk..." oninput="renderProducts()">
+        <select id="category-filter" onchange="renderProducts()"><option value="Semua">Semua kategori</option><option>RAM</option><option>Storage</option><option>Printer</option><option>Networking</option><option>Aksesoris</option></select>
+      </div>
+      <div id="product-grid" class="product-grid"></div>
+    </section>
+  </main>
+
+  <footer><div class="container footer-inner"><b>TEKO TUKU</b><span>© <span id="year"></span> TEKO TUKU. Semua hak dilindungi.</span></div></footer>
+
+  <div id="product-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="detail-name" onclick="if(event.target===this)closeProduct()">
+    <div class="product-modal">
+      <button class="modal-close" id="detail-close" onclick="closeProduct()" aria-label="Tutup">✕</button>
+      <div class="detail-image" id="detail-image"></div>
+      <div class="detail-body">
+        <span class="product-category" id="detail-category"></span>
+        <h3 id="detail-name"></h3>
+        <div class="price" id="detail-price"></div>
+        <p id="detail-description"></p>
+        <button class="primary-btn full" id="detail-add">+ Keranjang</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="cart-panel" class="cart-panel hidden">
+    <div class="cart-head"><h3>Keranjang belanja</h3><button onclick="toggleCart()" aria-label="Tutup">✕</button></div>
+    <div id="cart-items"></div>
+    <div class="cart-total"><span>Total</span><b id="cart-total">Rp0</b></div>
+    <button class="primary-btn full" onclick="checkoutWhatsApp()">Pesan via WhatsApp</button>
+  </div>
+  <div id="toast" class="toast"></div>
+  <script src="script.js?v=2"></script>
+</body>
+</html>
