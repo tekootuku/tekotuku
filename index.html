@@ -1,0 +1,306 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TEKO TUKU - Toko Komputer</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+header {
+  background: #172554;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+header h1 { margin: 0; }
+
+nav {
+  background: #2563eb;
+  padding: 14px;
+  text-align: center;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 12px;
+}
+
+.hero {
+  background: #dbeafe;
+  padding: 35px 15px;
+  text-align: center;
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+}
+
+.products {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit, minmax(210px, 1fr));
+  gap: 18px;
+}
+
+.card, .cart {
+  background: white;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px #0001;
+}
+
+.card img {
+  width: 100%;
+  height: 150px;
+  object-fit: contain;
+}
+
+.price {
+  color: #2563eb;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+button {
+  border: none;
+  border-radius: 7px;
+  padding: 11px;
+  cursor: pointer;
+  background: #2563eb;
+  color: white;
+}
+
+.card button { width: 100%; }
+
+button:hover { opacity: .85; }
+
+.cart {
+  margin-top: 30px;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid #ddd;
+  padding: 12px 0;
+}
+
+.qty button {
+  padding: 5px 10px;
+  margin: 2px;
+}
+
+.total {
+  font-size: 21px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.checkout {
+  background: #16a34a;
+  width: 100%;
+  margin-top: 15px;
+}
+
+footer {
+  background: #172554;
+  color: white;
+  padding: 25px;
+  text-align: center;
+  margin-top: 30px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>TEKO TUKU</h1>
+  <p>Toko Komputer dan Aksesoris Terpercaya</p>
+</header>
+
+<nav>
+  <a href="#">Beranda</a>
+  <a href="#produk">Produk</a>
+  <a href="#keranjang">Keranjang 🛒</a>
+</nav>
+
+<section class="hero">
+  <h2>Selamat Datang di TEKO TUKU!</h2>
+  <p>Belanja kebutuhan komputer lebih mudah dan praktis.</p>
+</section>
+
+<div class="container" id="produk">
+  <h2>Produk Kami</h2>
+  <div class="products" id="productList"></div>
+
+  <div class="cart" id="keranjang">
+    <h2>🛒 Keranjang Belanja</h2>
+    <div id="cartList">Keranjang masih kosong.</div>
+    <div class="total" id="total">Total: Rp 0</div>
+
+    <button class="checkout" onclick="checkout()">
+      Checkout via WhatsApp
+    </button>
+  </div>
+</div>
+
+<footer>
+  <h3>TEKO TUKU</h3>
+  <p>Terima kasih telah berbelanja.</p>
+  <p>© 2026 TEKO TUKU</p>
+</footer>
+
+<script>
+const produk = [
+  {
+    nama: "RAM DDR4 8GB",
+    harga: 175000,
+    gambar: "https://placehold.co/300x200?text=RAM+DDR4"
+  },
+  {
+    nama: "SSD NVMe 512GB",
+    harga: 450000,
+    gambar: "https://placehold.co/300x200?text=SSD+512GB"
+  },
+  {
+    nama: "Printer Canon iP2770",
+    harga: 650000,
+    gambar: "https://placehold.co/300x200?text=Printer"
+  },
+  {
+    nama: "Router WiFi",
+    harga: 250000,
+    gambar: "https://placehold.co/300x200?text=Router"
+  }
+];
+
+let keranjang = [];
+
+function rupiah(angka) {
+  return "Rp " + angka.toLocaleString("id-ID");
+}
+
+function tampilProduk() {
+  const area = document.getElementById("productList");
+
+  area.innerHTML = produk.map((p, i) => `
+    <div class="card">
+      <img src="${p.gambar}" alt="${p.nama}">
+      <h3>${p.nama}</h3>
+      <p class="price">${rupiah(p.harga)}</p>
+      <button onclick="tambah(${i})">
+        + Tambah ke Keranjang
+      </button>
+    </div>
+  `).join("");
+}
+
+function tambah(index) {
+  const item = keranjang.find(
+    p => p.nama === produk[index].nama
+  );
+
+  if (item) {
+    item.jumlah++;
+  } else {
+    keranjang.push({
+      ...produk[index],
+      jumlah: 1
+    });
+  }
+
+  tampilKeranjang();
+}
+
+function ubahJumlah(index, nilai) {
+  keranjang[index].jumlah += nilai;
+
+  if (keranjang[index].jumlah <= 0) {
+    keranjang.splice(index, 1);
+  }
+
+  tampilKeranjang();
+}
+
+function tampilKeranjang() {
+  const area = document.getElementById("cartList");
+  let total = 0;
+
+  if (keranjang.length === 0) {
+    area.innerHTML = "Keranjang masih kosong.";
+  } else {
+    area.innerHTML = keranjang.map((p, i) => {
+      total += p.harga * p.jumlah;
+
+      return `
+        <div class="cart-item">
+          <div>
+            <b>${p.nama}</b><br>
+            ${rupiah(p.harga * p.jumlah)}
+          </div>
+
+          <div class="qty">
+            <button onclick="ubahJumlah(${i}, -1)">-</button>
+            ${p.jumlah}
+            <button onclick="ubahJumlah(${i}, 1)">+</button>
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  document.getElementById("total").innerText =
+    "Total: " + rupiah(total);
+}
+
+function checkout() {
+  if (keranjang.length === 0) {
+    alert("Keranjang masih kosong!");
+    return;
+  }
+
+  const nomor = "6285172372806";
+
+  let pesan = "Halo TEKO TUKU, saya ingin memesan:\n\n";
+  let total = 0;
+
+  keranjang.forEach(p => {
+    pesan += p.nama + " x " + p.jumlah +
+      " = " + rupiah(p.harga * p.jumlah) + "\n";
+
+    total += p.harga * p.jumlah;
+  });
+
+  pesan += "\nTotal: " + rupiah(total);
+  pesan += "\n\nMohon informasi cara pembayarannya.";
+
+  window.open(
+    "https://wa.me/" + nomor +
+    "?text=" + encodeURIComponent(pesan),
+    "_blank"
+  );
+}
+
+tampilProduk();
+tampilKeranjang();
+</script>
+
+</body>
+</html>
