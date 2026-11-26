@@ -6,7 +6,7 @@ const DEFAULT_PRODUCTS = [
  {id:5,name:"Adaptor 5V 2A",price:35000,category:"Aksesoris",image:"",description:"Adaptor daya 5V 2A."}
 ];
 const DEFAULT_CATEGORIES = ["RAM","Storage","Printer","Networking","Aksesoris"];
-const WHATSAPP_NUMBER = "6281234567890"; // Ganti dengan nomor WhatsApp toko, format 62xxxxxxxx
+const WHATSAPP_NUMBER = "6281393332644"; // Ganti dengan nomor WhatsApp toko, format 62xxxxxxxx
 let products = JSON.parse(localStorage.getItem("tekoProducts") || "null") || DEFAULT_PRODUCTS;
 let categories = JSON.parse(localStorage.getItem("tekoCategories") || "null") || DEFAULT_CATEGORIES.slice();
 let cart = JSON.parse(localStorage.getItem("tekoCart") || "[]");
